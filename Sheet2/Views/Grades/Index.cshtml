@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Grade Calculator</h2>
+
+@if (ViewData["message"] != null)
+{
+    <h3>@ViewData["message"]</h3>
+    <br />
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "gradesform" }))
+{
+
+    <p id="Grade1">Enter Grade 1: @Html.TextBox("GradeInput_1")</p>
+    <p id="Grade2">Enter Grade 2: @Html.TextBox("GradeInput_2")</p>
+    <p id="Grade3">Enter Grade 3: @Html.TextBox("GradeInput_3")</p>
+
+    <input type="submit" value="Calculate Average" />
+}
+
+@if (ViewData["average"] != null)
+{
+    Double average = Convert.ToDouble(ViewData["average"]);
+    if (average <= 100 && average >= 90)
+    {
+        <h3 class="text-success">Congratulation, you've averaged A.</h3>
+    }
+    else if (average <= 89 && average >= 80)
+    {
+        <h3 class="text-success">Congratulation, you've averaged B.</h3>
+    }
+    else if (average <= 79 && average >= 70)
+    {
+        <h3 class="text-warning">You've averaged C.</h3>
+    }
+    else if (average <= 69 && average >= 60)
+    {
+        <h3 class="text-danger">You've averaged D, try harder!</h3>
+    }
+    else
+    {
+        <h3 class="text-danger">You've averaged F, failure.</h3>
+    }
+}
+<br />
+<script>
+    var grades_id = 3;
+    function add() {
+        var reqs = document.getElementById("Grade" + grades_id);
+        grades_id++;// increment reqs_id to get a unique ID for the new element
+
+        //create textbox
+        var p = document.createElement("p");
+        p.textContent = ("Enter Grade " + grades_id + ": ");
+        p.setAttribute("id", "Grade" + grades_id);
+        var input = document.createElement('input');
+        input.type = "text";
+        input.setAttribute('name', 'GradeInput_' + grades_id);
+        //append elements
+        p.appendChild(input);
+        reqs.parentNode.insertBefore(p, reqs.nextSibling);
+    }
+
+</script>
+<button type="button" value="Add" onclick="javascript:add();"> Add</button>
+<br />
+<br />
+<form action="/Home/Index" method="get">
+    <input type="submit" value="Back to Home Page" />
+</form>
+<form action="/Loan/Index" method="get">
+    <input type="submit" value="Go to Loan" />
+</form>

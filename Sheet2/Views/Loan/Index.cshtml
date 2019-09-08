@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Loan Calculator</h2>
+
+<form action="/Loan/Index" method="post">
+    Initial Investment: <input type="number" name="initialInvestment" id="iI" required value="@ViewData["initialInvestment"]"/>
+    <br />
+    Interest Rate: <input type="number" name="interest" id="interest" required value="@ViewData["interest"]"/>
+    <br />
+    Number of Years: <input type="number" name="numYears" id="numYears" required value="@ViewData["numYears"]"/>
+    <br />
+    <input type="submit" value="Calculate" />
+</form>
+
+@if (ViewData["finalInvestment"] != null)
+{
+    <h3>You'll make @ViewData["finalInvestment"]</h3>
+}
+<br />
+<form action="/Home/Index" method="get">
+    <input type="submit" value="Back to Home Page" />
+</form>
+<form action="/Grades/Index" method="get">
+    <input type="submit" value="Go to Grades" />
+</form>
